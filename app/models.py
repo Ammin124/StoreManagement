@@ -21,6 +21,18 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+class Vendor(models.Model):
+    name = models.CharField(max_length=200, unique=True)
+    productType = models.CharField(max_length=150)
+    email = models.EmailField(unique=True)
+    phone = PhoneField(blank=True, help_text='Contact phone number')
+    address = models.TextField()
+    bank = models.TextField()
+    contact = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name + " " + self.productType
+
 
 class UserProfile(models.Model):
     name = models.CharField(max_length=100, help_text='Enter Full Name')
@@ -46,6 +58,7 @@ class UserProfile(models.Model):
 class StoreItem(models.Model):
     name = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
     price = models.IntegerField()
     totalPrice = models.IntegerField()
     quantity = models.IntegerField()
