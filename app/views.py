@@ -2,6 +2,8 @@ from django.contrib.auth import authenticate
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
+from .models import Category, Vendor, UserProfile, StoreItem
+from .forms import CategoryForms
 
 # Create your views here.
 
@@ -28,3 +30,23 @@ def logoutUser(request):
     logout(request)
     messages.success(request, "logout your account ?")
     return redirect('login')
+
+def category(request):
+    if request.method == 'POST':
+        catForms = CategoryForms(request.POST)
+        if catForms.is_valid():
+            name = catForms.cleaned_data['name']
+            about = catForms.cleaned_data['about']
+            image = catForms.cleaned_data['image']
+            catData = Category(name=name, about=about, image=image)
+            catData.save()
+        catForms = CategoryForms()
+    else:
+        catForms = CategoryForms()
+    categoryData = Category.objects.all()
+
+    context = {
+        'catForms': catForms,
+        'categoryData': categoryData,
+    }
+    return render(request,'home/category.html', context)

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	Product Category.
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <br>
+        <h2 class="text-center">Product Category</h2>
+        <hr>
+        <div class="row">
+            <div class="col-6 col-md-4">
+                <h4 class="text-center">Add Category</h4>
+                <hr>
+                <div class="form-group">
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        {{ catForms.as_p }}
+                        <button class="btn btn-outline-secondary">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-7 offset-1">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cata in categoryData %}
+                        	<tr>
+                                <th scope="row">{{ cata.id }}</th>
+                                <td>{{ cata.name }}</td>
+                                <td>{{ cata.modified }}</td>
+                                <td><button type="button" class="btn btn-outline-secondary"
+                                style="height: 30px;font-size: 12px">Edit</button></td>
+                            </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
