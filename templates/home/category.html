@@ -37,8 +37,10 @@
                                 <th scope="row">{{ cata.id }}</th>
                                 <td>{{ cata.name }}</td>
                                 <td>{{ cata.modified }}</td>
-                                <td><button type="button" class="btn btn-outline-secondary"
-                                style="height: 30px;font-size: 12px">Edit</button></td>
+                                <td>
+                                    <a style="text-decoration: none; color: black" href="{% url 'updateCategory' cata.id %}"><button type="button" class="btn btn-outline-secondary"
+                                style="height: 30px;font-size: 12px"> Edit</button> </a>
+                                </td>
                             </tr>
                         {% endfor %}
 

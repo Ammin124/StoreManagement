@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	Update Category.
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <br>
+    <h2 class="text-center">Update Product Category</h2>
+    <hr>
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <div class="form-group">
+                <form method="POST" action="{% url 'category' %}">
+                    {% csrf_token %}
+                    {{ catForms.as_p }}
+                    <button type="submit" class="btn btn-outline-secondary">Update</button>
+                    <button class="btn btn-outline-secondary"><a style="text-decoration: none; color: black" href="{% url 'category' %}">Back</a></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

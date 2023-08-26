@@ -50,3 +50,17 @@ def category(request):
         'categoryData': categoryData,
     }
     return render(request,'home/category.html', context)
+
+def updateCategory(request, id):
+    if request.method == 'POST':
+        upCat = Category.objects.get(pk=id)
+        catForms = CategoryForms(request.POST, instance=upCat)
+        if catForms.is_valid():
+            catForms.save()
+    else:
+        upCat = Category.objects.get(pk=id)
+        catForms = CategoryForms(instance=upCat)
+    context = {
+        'catForms': catForms,
+    }
+    return render(request, 'home/updateCategory.html', context)
