@@ -1,7 +1,7 @@
 import uuid
 
 from django.db import models
-from phone_field import PhoneField
+from phonenumber_field.modelfields import PhoneNumberField
 
 # Create your models here.
 def generate_unique_id():
@@ -17,7 +17,6 @@ class Category(models.Model):
     image = models.ImageField(upload_to='category', blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-
     def __str__(self):
         return self.name
     class Meta:
@@ -27,13 +26,13 @@ class Vendor(models.Model):
     name = models.CharField(max_length=200, unique=True)
     productType = models.CharField(max_length=150)
     email = models.EmailField(unique=True)
-    phone = PhoneField(blank=True, help_text='Contact phone number')
+    phone = PhoneNumberField(blank=True)
     address = models.TextField()
     bank = models.TextField()
     contact = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.name + " " + self.productType
+        return self.name + "  --  " + self.productType
 
 
 class UserProfile(models.Model):
@@ -42,7 +41,7 @@ class UserProfile(models.Model):
     image = models.ImageField(upload_to='User image')
     userID = models.CharField(max_length=6, default=generate_unique_id, unique=True)
     email = models.EmailField(unique=True)
-    number = PhoneField(blank=True, help_text='Contact phone number')
+    phone = PhoneNumberField(blank=True)
     presentAddress = models.TextField()
     permanentAddress = models.TextField()
     joiningDate = models.DateField()

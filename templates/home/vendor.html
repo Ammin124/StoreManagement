@@ -1,9 +1,61 @@
 {% extends 'base.html' %}
 
 {% block title %}
-	Vendor
+	Office Vendor
 {% endblock %}
 
-{% block context %}
-	
+{% block content %}
+    <div class="container">
+        <br>
+        <h2 class="text-center">Office Vendor</h2>
+        <hr>
+        <div class="row">
+            <div class="col-6 col-md-4">
+                <h4 class="text-center">Add Vendor</h4>
+                <hr>
+                <div class="form-group">
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        {{ venForms.as_p }}
+                        <button class="btn btn-outline-secondary">Submit</button>
+                    </form>
+                    <br>
+                </div>
+            </div>
+            <div class="col-md-7 offset-1">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Vendor Name</th>
+                            <th scope="col">Vendor Type</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Acton</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ven in vendorData %}
+                        	<tr>
+                                <td>{{ ven.name }}</td>
+                                <td>{{ ven.productType }}</td>
+                                <td>{{ ven.phone }}</td>
+                                <td>
+                                    <a style="text-decoration: none; color: black" href="{% url 'updateVendor' ven.id %}">
+                                        <button type="button" class="btn btn-outline-secondary" style="height: 30px;font-size: 12px">
+                                            Edit
+                                        </button>
+                                    </a>
+                                    <a style="text-decoration: none; color: black" href="{% url 'vendorDetails' ven.id %}">
+                                        <button type="button" class="btn btn-outline-secondary" style="height: 30px;font-size: 12px">
+                                            View
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 {% endblock %}

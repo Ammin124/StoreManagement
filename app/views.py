@@ -2,8 +2,10 @@ from django.contrib.auth import authenticate
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
+from django.urls import reverse
+
 from .models import Category, Vendor, UserProfile, StoreItem
-from .forms import CategoryForms
+from .forms import CategoryForms, VendorForms
 
 # Create your views here.
 
@@ -64,3 +66,50 @@ def updateCategory(request, id):
         'catForms': catForms,
     }
     return render(request, 'home/updateCategory.html', context)
+
+def vendor(request):
+    if request.method == 'POST':
+        venForms = VendorForms(request.POST)
+        if venForms.is_valid():
+            name = venForms.cleaned_data['name']
+            productType = venForms.cleaned_data['productType']
+            email = venForms.cleaned_data['email']
+            phone = venForms.cleaned_data['phone']
+            address = venForms.cleaned_data['address']
+            bank = venForms.cleaned_data['bank']
+            contact = venForms.cleaned_data['contact']
+            vanData = Vendor(name=name, productType=productType, email=email, phone=phone,  address=address,
+                             bank=bank , contact=contact)
+            vanData.save()
+        venForms = VendorForms()
+    else:
+        venForms = VendorForms()
+    vendorData = Vendor.objects.all()
+
+    context = {
+        'venForms': venForms,
+        'vendorData': vendorData,
+    }
+    return render(request, 'home/vendor.html', context)
+
+def updateVendor(request, id):
+    if request.method == 'POST':
+        upVat = Vendor.objects.get(pk=id)
+        vanForms = VendorForms(request.POST, instance=upVat)
+        if vanForms.is_valid():
+            vanForms.save()
+            return redirect(reverse('vendor'))
+    else:
+        upVat = Vendor.objects.get(pk=id)
+        vanForms = VendorForms(instance=upVat)
+    context = {
+        'vanForms': vanForms,
+    }
+    return render(request, 'home/updateVendor.html', context)
+
+def vendorDetails(request, id):
+    ven = Vendor.objects.get(pk=id)
+    context = {
+        'ven': ven,
+    }
+    return render(request, 'home/vendorDetails.html', context)

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	Vendor Details.
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <br>
+        <h2 class="text-center">Vendor Details</h2>
+        <hr>
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        Name: &nbsp; &nbsp; &nbsp; {{ ven.name }}
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Type:&nbsp; &nbsp; &nbsp;  {{ ven.productType }}</li>
+                        <li class="list-group-item">Email: &nbsp; &nbsp; &nbsp; {{ ven.email }}</li>
+                        <li class="list-group-item">Phone: &nbsp; &nbsp; &nbsp; {{ ven.phone }}</li>
+                        <li class="list-group-item">Address:&nbsp; &nbsp; &nbsp;  {{ ven.address }}</li>
+                        <li class="list-group-item">Bank: &nbsp; &nbsp; &nbsp; {{ ven.bank }}</li>
+                        <li class="list-group-item">Contact: &nbsp; &nbsp; &nbsp; {{ ven.contact }}</li>
+                    </ul>
+                </div>
+                <br>
+                <button class="btn btn-outline-secondary">
+                    <a style="text-decoration: none; color: black" href="{% url 'vendor' %}">Back</a>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br>
+{% endblock %}
