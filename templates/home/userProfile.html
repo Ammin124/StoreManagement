@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	User Profile
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <br>
+        <h2 class="text-center">User Profile</h2>
+        <hr>
+        <div class="row">
+            <div class="col-6 col-md-4">
+                <h4 class="text-center">Add User</h4>
+                <hr>
+                <div class="form-group">
+                    <form method="POST" action="" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ proForms.as_p }}
+                        <button class="btn btn-outline-secondary">Submit</button>
+                    </form>
+                    <br>
+                </div>
+            </div>
+            <div class="col-md-7 offset-1">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Designations</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Acton</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for pro in profileData %}
+                        	<tr>
+                                <td>{{ pro.name }}</td>
+                                <td>{{ pro.designations }}</td>
+                                <td>{{ pro.phone }}</td>
+                                <td>
+                                    <a style="text-decoration: none; color: black" href="#">
+                                        <button type="button" class="btn btn-outline-secondary" style="height: 30px;font-size: 12px">
+                                            Edit
+                                        </button>
+                                    </a>
+                                    <a style="text-decoration: none; color: black" href="#">
+                                        <button type="button" class="btn btn-outline-secondary" style="height: 30px;font-size: 12px">
+                                            View
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
