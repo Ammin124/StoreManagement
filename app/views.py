@@ -62,6 +62,7 @@ def updateCategory(request, id):
         catForms = CategoryForms(request.POST, instance=upCat)
         if catForms.is_valid():
             catForms.save()
+            return redirect(reverse('category'))
     else:
         upCat = Category.objects.get(pk=id)
         catForms = CategoryForms(instance=upCat)
@@ -151,3 +152,19 @@ def profile(request):
     return render(request, 'home/userProfile.html', context)
 
 # ---------------------------------------- Eng User Profile Section ------------------------------------
+# ---------------------------------------- Update User Profile Section ------------------------------------
+def updateProfile(request, id):
+    if request.method == 'POST':
+        upPro = UserProfile.objects.get(pk=id)
+        proForms = ProfileForms(request.POST, instance=upPro)
+        if proForms.is_valid():
+            proForms.save()
+            return redirect(reverse('profile'))
+    else:
+        upPro = UserProfile.objects.get(pk=id)
+        proForms = ProfileForms(instance=upPro)
+    context = {
+        'proForms': proForms,
+    }
+    return render(request, 'home/editProfile.html', context)
+# ---------------------------------------- Eng Update User Profile Section ------------------------------------

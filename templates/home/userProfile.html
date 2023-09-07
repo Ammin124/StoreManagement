@@ -39,7 +39,7 @@
                                 <td>{{ pro.designations }}</td>
                                 <td>{{ pro.phone }}</td>
                                 <td>
-                                    <a style="text-decoration: none; color: black" href="#">
+                                    <a style="text-decoration: none; color: black" href="{% url 'updateProfile' pro.id %}">
                                         <button type="button" class="btn btn-outline-secondary" style="height: 30px;font-size: 12px">
                                             Edit
                                         </button>
